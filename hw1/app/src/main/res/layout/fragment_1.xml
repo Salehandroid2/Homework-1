@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:gravity="center"
+    android:background="#FFFFFFFF">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#FF3700B3"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Let us get you set up"
+        android:textSize="16sp"
+        android:textColor="#FF666666"
+        android:layout_marginBottom="40dp"/>
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your full name"
+        android:textColorHint="#FF888888"
+        android:textColor="#FF000000"
+        android:inputType="textPersonName"
+        android:padding="14dp"
+        android:background="@drawable/edit_bg"
+        android:layout_marginBottom="24dp"/>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="Get Started"
+        android:textColor="#FFFFFFFF"
+        android:textSize="16sp"
+        android:backgroundTint="#FF3700B3"/>
+
+</LinearLayout>
