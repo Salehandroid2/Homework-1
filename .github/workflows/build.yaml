@@ -1,0 +1,622 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Android SDK
+        run: |
+          echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          echo "ANDROID_SDK_ROOT=/usr/local/lib/android/sdk" >> $GITHUB_ENV
+          echo "/usr/local/lib/android/sdk/cmdline-tools/latest/bin" >> $GITHUB_PATH
+          echo "/usr/local/lib/android/sdk/platform-tools" >> $GITHUB_PATH
+          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null 2>&1 || true
+          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+      - name: Create full project structure
+        run: |
+          mkdir -p app/src/main/java/com/example/onboarding
+          mkdir -p app/src/main/res/layout
+          mkdir -p app/src/main/res/values
+          mkdir -p app/src/main/res/drawable
+          mkdir -p gradle/wrapper
+
+          # ── settings.gradle ──────────────────────────────────────────────
+          cat > settings.gradle << 'ENDOFFILE'
+          pluginManagement {
+              repositories {
+                  google()
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          rootProject.name = "OnboardingApp"
+          include ':app'
+          ENDOFFILE
+
+          # ── build.gradle (root) ──────────────────────────────────────────
+          cat > build.gradle << 'ENDOFFILE'
+          plugins {
+              id 'com.android.application' version '8.1.0' apply false
+              id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
+          }
+          ENDOFFILE
+
+          # ── gradle.properties ────────────────────────────────────────────
+          cat > gradle.properties << 'ENDOFFILE'
+          org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
+          android.useAndroidX=true
+          android.enableJetifier=true
+          kotlin.code.style=official
+          ENDOFFILE
+
+          # ── gradle-wrapper.properties ────────────────────────────────────
+          cat > gradle/wrapper/gradle-wrapper.properties << 'ENDOFFILE'
+          distributionBase=GRADLE_USER_HOME
+          distributionPath=wrapper/dists
+          distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
+          zipStoreBase=GRADLE_USER_HOME
+          zipStorePath=wrapper/dists
+          ENDOFFILE
+
+          # ── app/build.gradle ─────────────────────────────────────────────
+          cat > app/build.gradle << 'ENDOFFILE'
+          plugins {
+              id 'com.android.application'
+              id 'org.jetbrains.kotlin.android'
+          }
+          android {
+              namespace 'com.example.onboarding'
+              compileSdk 34
+              defaultConfig {
+                  applicationId "com.example.onboarding"
+                  minSdk 24
+                  targetSdk 34
+                  versionCode 1
+                  versionName "1.0"
+              }
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                      proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                  }
+              }
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_1_8
+                  targetCompatibility JavaVersion.VERSION_1_8
+              }
+              kotlinOptions {
+                  jvmTarget = '1.8'
+              }
+          }
+          dependencies {
+              implementation 'androidx.core:core-ktx:1.12.0'
+              implementation 'androidx.appcompat:appcompat:1.6.1'
+              implementation 'com.google.android.material:material:1.11.0'
+              implementation 'androidx.fragment:fragment-ktx:1.6.2'
+          }
+          ENDOFFILE
+
+          # ── AndroidManifest.xml ──────────────────────────────────────────
+          cat > app/src/main/AndroidManifest.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <application
+                  android:allowBackup="true"
+                  android:label="Onboarding App"
+                  android:theme="@style/Theme.OnboardingApp"
+                  android:supportsRtl="true">
+                  <activity
+                      android:name=".MainActivity"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                  </activity>
+              </application>
+          </manifest>
+          ENDOFFILE
+
+          # ── colors.xml ───────────────────────────────────────────────────
+          cat > app/src/main/res/values/colors.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <color name="purple_700">#FF3700B3</color>
+              <color name="purple_200">#BBBBFF</color>
+              <color name="white">#FFFFFFFF</color>
+              <color name="black">#FF000000</color>
+              <color name="hint_color">#FF888888</color>
+              <color name="edit_bg">#FFF5F5F5</color>
+              <color name="edit_border">#FFCCCCCC</color>
+          </resources>
+          ENDOFFILE
+
+          # ── strings.xml ──────────────────────────────────────────────────
+          cat > app/src/main/res/values/strings.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <string name="app_name">Onboarding App</string>
+          </resources>
+          ENDOFFILE
+
+          # ── themes.xml ───────────────────────────────────────────────────
+          cat > app/src/main/res/values/themes.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <style name="Theme.OnboardingApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+                  <item name="colorPrimary">#FF3700B3</item>
+                  <item name="colorPrimaryVariant">#FF3700B3</item>
+                  <item name="colorOnPrimary">#FFFFFFFF</item>
+                  <item name="android:windowBackground">#FFFFFFFF</item>
+                  <item name="editTextStyle">@style/MyEditTextStyle</item>
+              </style>
+              <style name="MyEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
+                  <item name="android:textColor">#FF000000</item>
+                  <item name="android:textColorHint">#FF888888</item>
+              </style>
+          </resources>
+          ENDOFFILE
+
+          # ── edit_bg.xml drawable ─────────────────────────────────────────
+          cat > app/src/main/res/drawable/edit_bg.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <shape xmlns:android="http://schemas.android.com/apk/res/android"
+              android:shape="rectangle">
+              <solid android:color="#FFF5F5F5"/>
+              <stroke android:width="1dp" android:color="#FFCCCCCC"/>
+              <corners android:radius="8dp"/>
+          </shape>
+          ENDOFFILE
+
+          # ── activity_main.xml ────────────────────────────────────────────
+          cat > app/src/main/res/layout/activity_main.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/fragment_container"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFFFF"/>
+          ENDOFFILE
+
+          # ── fragment_1.xml ───────────────────────────────────────────────
+          cat > app/src/main/res/layout/fragment_1.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="32dp"
+              android:gravity="center"
+              android:background="#FFFFFFFF">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Welcome!"
+                  android:textSize="28sp"
+                  android:textStyle="bold"
+                  android:textColor="#FF3700B3"
+                  android:layout_marginBottom="8dp"/>
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Let us get you set up"
+                  android:textSize="16sp"
+                  android:textColor="#FF666666"
+                  android:layout_marginBottom="40dp"/>
+
+              <EditText
+                  android:id="@+id/etName"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:hint="Enter your full name"
+                  android:textColorHint="#FF888888"
+                  android:textColor="#FF000000"
+                  android:inputType="textPersonName"
+                  android:padding="14dp"
+                  android:background="@drawable/edit_bg"
+                  android:layout_marginBottom="24dp"/>
+
+              <Button
+                  android:id="@+id/btnNext"
+                  android:layout_width="match_parent"
+                  android:layout_height="56dp"
+                  android:text="Get Started"
+                  android:textColor="#FFFFFFFF"
+                  android:textSize="16sp"
+                  android:backgroundTint="#FF3700B3"/>
+
+          </LinearLayout>
+          ENDOFFILE
+
+          # ── fragment_2.xml ───────────────────────────────────────────────
+          cat > app/src/main/res/layout/fragment_2.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#FFFFFFFF">
+
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:padding="32dp"
+                  android:gravity="center_horizontal">
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Step 2 of 3"
+                      android:textSize="13sp"
+                      android:textColor="#FF999999"
+                      android:layout_marginBottom="4dp"/>
+
+                  <TextView
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:text="Tell us about yourself"
+                      android:textSize="24sp"
+                      android:textStyle="bold"
+                      android:textColor="#FF3700B3"
+                      android:layout_marginBottom="32dp"/>
+
+                  <EditText
+                      android:id="@+id/etName"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Full Name"
+                      android:textColorHint="#FF888888"
+                      android:textColor="#FF000000"
+                      android:inputType="textPersonName"
+                      android:padding="14dp"
+                      android:background="@drawable/edit_bg"
+                      android:layout_marginBottom="16dp"/>
+
+                  <EditText
+                      android:id="@+id/etEmail"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:hint="Email Address"
+                      android:textColorHint="#FF888888"
+                      android:textColor="#FF000000"
+                      android:inputType="textEmailAddress"
+                      android:padding="14dp"
+                      android:background="@drawable/edit_bg"
+                      android:layout_marginBottom="16dp"/>
+
+                  <TextView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="Gender"
+                      android:textSize="14sp"
+                      android:textStyle="bold"
+                      android:textColor="#FF333333"
+                      android:layout_marginBottom="6dp"/>
+
+                  <RadioGroup
+                      android:id="@+id/rgGender"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginBottom="32dp">
+
+                      <RadioButton
+                          android:id="@+id/rbMale"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:text="Male"
+                          android:textColor="#FF000000"/>
+
+                      <RadioButton
+                          android:id="@+id/rbFemale"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:text="Female"
+                          android:textColor="#FF000000"/>
+
+                      <RadioButton
+                          android:id="@+id/rbOther"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:text="Other"
+                          android:textColor="#FF000000"/>
+                  </RadioGroup>
+
+                  <Button
+                      android:id="@+id/btnContinue"
+                      android:layout_width="match_parent"
+                      android:layout_height="56dp"
+                      android:text="Continue"
+                      android:textColor="#FFFFFFFF"
+                      android:textSize="16sp"
+                      android:backgroundTint="#FF3700B3"/>
+
+              </LinearLayout>
+          </ScrollView>
+          ENDOFFILE
+
+          # ── fragment_3.xml ───────────────────────────────────────────────
+          cat > app/src/main/res/layout/fragment_3.xml << 'ENDOFFILE'
+          <?xml version="1.0" encoding="utf-8"?>
+          <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:padding="32dp"
+              android:gravity="center_horizontal"
+              android:background="#FFFFFFFF">
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Step 3 of 3"
+                  android:textSize="13sp"
+                  android:textColor="#FF999999"
+                  android:layout_marginBottom="4dp"/>
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Almost there!"
+                  android:textSize="24sp"
+                  android:textStyle="bold"
+                  android:textColor="#FF3700B3"
+                  android:layout_marginBottom="24dp"/>
+
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Hello,"
+                  android:textSize="18sp"
+                  android:textColor="#FF555555"
+                  android:layout_marginBottom="4dp"/>
+
+              <TextView
+                  android:id="@+id/tvUserName"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="User"
+                  android:textSize="28sp"
+                  android:textStyle="bold"
+                  android:textColor="#FF3700B3"
+                  android:layout_marginBottom="40dp"/>
+
+              <CheckBox
+                  android:id="@+id/cbAgree"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="I confirm I have read and agree to use the app."
+                  android:textColor="#FF000000"
+                  android:textSize="15sp"
+                  android:layout_marginBottom="32dp"/>
+
+              <Button
+                  android:id="@+id/btnFinish"
+                  android:layout_width="match_parent"
+                  android:layout_height="56dp"
+                  android:text="Continue"
+                  android:textColor="#FFFFFFFF"
+                  android:textSize="16sp"
+                  android:enabled="false"
+                  android:alpha="0.5"
+                  android:backgroundTint="#FF3700B3"/>
+
+          </LinearLayout>
+          ENDOFFILE
+
+          # ── MainActivity.kt ──────────────────────────────────────────────
+          cat > app/src/main/java/com/example/onboarding/MainActivity.kt << 'ENDOFFILE'
+          package com.example.onboarding
+          import android.os.Bundle
+          import androidx.appcompat.app.AppCompatActivity
+          class MainActivity : AppCompatActivity(),
+              Fragment1.Fragment1Listener,
+              Fragment2.Fragment2Listener,
+              Fragment3.Fragment3Listener {
+              override fun onCreate(savedInstanceState: Bundle?) {
+                  super.onCreate(savedInstanceState)
+                  setContentView(R.layout.activity_main)
+                  if (savedInstanceState == null) {
+                      supportFragmentManager.beginTransaction()
+                          .replace(R.id.fragment_container, Fragment1())
+                          .commit()
+                  }
+              }
+              override fun onFragment1Continue(name: String) {
+                  supportFragmentManager.beginTransaction()
+                      .replace(R.id.fragment_container, Fragment2.newInstance(name))
+                      .addToBackStack(null).commit()
+              }
+              override fun onFragment2Continue(name: String) {
+                  supportFragmentManager.beginTransaction()
+                      .replace(R.id.fragment_container, Fragment3.newInstance(name))
+                      .addToBackStack(null).commit()
+              }
+              override fun onCheckboxStateChanged(isChecked: Boolean) {}
+          }
+          ENDOFFILE
+
+          # ── Fragment1.kt ─────────────────────────────────────────────────
+          cat > app/src/main/java/com/example/onboarding/Fragment1.kt << 'ENDOFFILE'
+          package com.example.onboarding
+          import android.content.Context
+          import android.os.Bundle
+          import android.view.LayoutInflater
+          import android.view.View
+          import android.view.ViewGroup
+          import android.widget.Button
+          import android.widget.EditText
+          import androidx.fragment.app.Fragment
+          class Fragment1 : Fragment() {
+              interface Fragment1Listener { fun onFragment1Continue(name: String) }
+              private var listener: Fragment1Listener? = null
+              override fun onAttach(context: Context) {
+                  super.onAttach(context)
+                  listener = context as? Fragment1Listener
+                      ?: throw ClassCastException("$context must implement Fragment1Listener")
+              }
+              override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+                  inflater.inflate(R.layout.fragment_1, container, false)
+              override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+                  super.onViewCreated(view, savedInstanceState)
+                  val etName = view.findViewById<EditText>(R.id.etName)
+                  val btnNext = view.findViewById<Button>(R.id.btnNext)
+                  btnNext.setOnClickListener {
+                      val name = etName.text.toString().trim()
+                      if (name.isEmpty()) { etName.error = "Please enter your name"; return@setOnClickListener }
+                      listener?.onFragment1Continue(name)
+                  }
+              }
+              override fun onDetach() { super.onDetach(); listener = null }
+          }
+          ENDOFFILE
+
+          # ── Fragment2.kt ─────────────────────────────────────────────────
+          cat > app/src/main/java/com/example/onboarding/Fragment2.kt << 'ENDOFFILE'
+          package com.example.onboarding
+          import android.content.Context
+          import android.os.Bundle
+          import android.view.LayoutInflater
+          import android.view.View
+          import android.view.ViewGroup
+          import android.widget.Button
+          import android.widget.EditText
+          import androidx.fragment.app.Fragment
+          class Fragment2 : Fragment() {
+              interface Fragment2Listener { fun onFragment2Continue(name: String) }
+              private var listener: Fragment2Listener? = null
+              override fun onAttach(context: Context) {
+                  super.onAttach(context)
+                  listener = context as? Fragment2Listener
+                      ?: throw ClassCastException("$context must implement Fragment2Listener")
+              }
+              override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+                  inflater.inflate(R.layout.fragment_2, container, false)
+              override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+                  super.onViewCreated(view, savedInstanceState)
+                  val etName = view.findViewById<EditText>(R.id.etName)
+                  val etEmail = view.findViewById<EditText>(R.id.etEmail)
+                  val btnContinue = view.findViewById<Button>(R.id.btnContinue)
+                  arguments?.getString("USER_NAME")?.let { etName.setText(it) }
+                  btnContinue.setOnClickListener {
+                      val name = etName.text.toString().trim()
+                      val email = etEmail.text.toString().trim()
+                      if (name.isEmpty()) { etName.error = "Name is required"; return@setOnClickListener }
+                      if (email.isEmpty()) { etEmail.error = "Email is required"; return@setOnClickListener }
+                      listener?.onFragment2Continue(name)
+                  }
+              }
+              override fun onDetach() { super.onDetach(); listener = null }
+              companion object {
+                  fun newInstance(userName: String): Fragment2 {
+                      val f = Fragment2()
+                      val args = Bundle()
+                      args.putString("USER_NAME", userName)
+                      f.arguments = args
+                      return f
+                  }
+              }
+          }
+          ENDOFFILE
+
+          # ── Fragment3.kt ─────────────────────────────────────────────────
+          cat > app/src/main/java/com/example/onboarding/Fragment3.kt << 'ENDOFFILE'
+          package com.example.onboarding
+          import android.content.Context
+          import android.os.Bundle
+          import android.view.LayoutInflater
+          import android.view.View
+          import android.view.ViewGroup
+          import android.widget.Button
+          import android.widget.CheckBox
+          import android.widget.TextView
+          import android.widget.Toast
+          import androidx.fragment.app.Fragment
+          class Fragment3 : Fragment() {
+              interface Fragment3Listener { fun onCheckboxStateChanged(isChecked: Boolean) }
+              private var listener: Fragment3Listener? = null
+              override fun onAttach(context: Context) {
+                  super.onAttach(context)
+                  listener = context as? Fragment3Listener
+              }
+              override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+                  inflater.inflate(R.layout.fragment_3, container, false)
+              override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+                  super.onViewCreated(view, savedInstanceState)
+                  val tvUserName = view.findViewById<TextView>(R.id.tvUserName)
+                  val cbAgree = view.findViewById<CheckBox>(R.id.cbAgree)
+                  val btnFinish = view.findViewById<Button>(R.id.btnFinish)
+                  val userName = arguments?.getString("USER_NAME") ?: "User"
+                  tvUserName.text = userName
+                  btnFinish.isEnabled = false
+                  cbAgree.setOnCheckedChangeListener { _, isChecked ->
+                      listener?.onCheckboxStateChanged(isChecked)
+                      btnFinish.isEnabled = isChecked
+                      btnFinish.alpha = if (isChecked) 1.0f else 0.5f
+                      btnFinish.text = if (isChecked) "Finish" else "Continue"
+                  }
+                  btnFinish.setOnClickListener {
+                      Toast.makeText(requireContext(), "Welcome, $userName!", Toast.LENGTH_LONG).show()
+                  }
+              }
+              override fun onDetach() { super.onDetach(); listener = null }
+              companion object {
+                  fun newInstance(userName: String): Fragment3 {
+                      val f = Fragment3()
+                      val args = Bundle()
+                      args.putString("USER_NAME", userName)
+                      f.arguments = args
+                      return f
+                  }
+              }
+          }
+          ENDOFFILE
+
+      - name: Generate Gradle Wrapper
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.0-bin.zip -O gradle.zip
+          unzip -q gradle.zip -d $HOME/gradle-install
+          GRADLE_BIN=$HOME/gradle-install/gradle-8.0/bin/gradle
+          chmod +x $GRADLE_BIN
+          $GRADLE_BIN wrapper --gradle-version 8.0 --project-dir .
+          chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OnboardingApp-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
