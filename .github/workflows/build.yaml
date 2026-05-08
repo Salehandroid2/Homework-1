@@ -28,571 +28,61 @@ jobs:
           mkdir -p hw1/gradle/wrapper
 
           # ── settings.gradle ──────────────────────────────────────────────
-          cat > hw1/settings.gradle << 'EOF'
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "OnboardingApp"
-include ':app'
-EOF
+          echo "cGx1Z2luTWFuYWdlbWVudCB7CiAgICByZXBvc2l0b3JpZXMgewogICAgICAgIGdvb2dsZSgpCiAgICAgICAgbWF2ZW5DZW50cmFsKCkKICAgICAgICBncmFkbGVQbHVnaW5Qb3J0YWwoKQogICAgfQp9CmRlcGVuZGVuY3lSZXNvbHV0aW9uTWFuYWdlbWVudCB7CiAgICByZXBvc2l0b3JpZXNNb2RlLnNldChSZXBvc2l0b3JpZXNNb2RlLkZBSUxfT05fUFJPSkVDVF9SRVBPUykKICAgIHJlcG9zaXRvcmllcyB7CiAgICAgICAgZ29vZ2xlKCkKICAgICAgICBtYXZlbkNlbnRyYWwoKQogICAgfQp9CnJvb3RQcm9qZWN0Lm5hbWUgPSAiT25ib2FyZGluZ0FwcCIKaW5jbHVkZSAnOmFwcCc=" | base64 -d > hw1/settings.gradle
 
           # ── build.gradle (root) ──────────────────────────────────────────
-          cat > hw1/build.gradle << 'EOF'
-plugins {
-    id 'com.android.application' version '8.1.0' apply false
-    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
-}
-EOF
+          echo "cGx1Z2lucyB7CiAgICBpZCAnY29tLmFuZHJvaWQuYXBwbGljYXRpb24nIHZlcnNpb24gJzguMS4wJyBhcHBseSBmYWxzZQogICAgaWQgJ29yZy5qZXRicmFpbnMua290bGluLmFuZHJvaWQnIHZlcnNpb24gJzEuOS4wJyBhcHBseSBmYWxzZQp9" | base64 -d > hw1/build.gradle
 
           # ── gradle.properties ────────────────────────────────────────────
-          cat > hw1/gradle.properties << 'EOF'
-org.gradle.jvmargs=-Xmx2048m -Dfile.encoding=UTF-8
-android.useAndroidX=true
-android.enableJetifier=true
-kotlin.code.style=official
-EOF
+          echo "b3JnLmdyYWRsZS5qdm1hcmdzPS1YbXgyMDQ4bSAtRGZpbGUuZW5jb2Rpbmc9VVRGLTgKYW5kcm9pZC51c2VBbmRyb2lkWD10cnVlCmFuZHJvaWQuZW5hYmxlSmV0aWZpZXI9dHJ1ZQprb3RsaW4uY29kZS5zdHlsZT1vZmZpY2lhbA==" | base64 -d > hw1/gradle.properties
 
           # ── gradle-wrapper.properties ────────────────────────────────────
-          cat > hw1/gradle/wrapper/gradle-wrapper.properties << 'EOF'
-distributionBase=GRADLE_USER_HOME
-distributionPath=wrapper/dists
-distributionUrl=https\://services.gradle.org/distributions/gradle-8.0-bin.zip
-zipStoreBase=GRADLE_USER_HOME
-zipStorePath=wrapper/dists
-EOF
+          echo "ZGlzdHJpYnV0aW9uQmFzZT1HUkFETEVfVVNFUl9IT01FCmRpc3RyaWJ1dGlvblBhdGg9d3JhcHBlci9kaXN0cwpkaXN0cmlidXRpb25Vcmw9aHR0cHNcOi8vc2VydmljZXMuZ3JhZGxlLm9yZy9kaXN0cmlidXRpb25zL2dyYWRsZS04LjAtYmluLnppcAp6aXBTdG9yZUJhc2U9R1JBRExFX1VTRVJfSE9NRQp6aXBTdG9yZVBhdGg9d3JhcHBlci9kaXN0cw==" | base64 -d > hw1/gradle/wrapper/gradle-wrapper.properties
 
           # ── app/build.gradle ─────────────────────────────────────────────
-          cat > hw1/app/build.gradle << 'EOF'
-plugins {
-    id 'com.android.application'
-    id 'org.jetbrains.kotlin.android'
-}
-android {
-    namespace 'com.example.onboarding'
-    compileSdk 34
-    defaultConfig {
-        applicationId "com.example.onboarding"
-        minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-}
-dependencies {
-    implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
-    implementation 'androidx.fragment:fragment-ktx:1.6.2'
-}
-EOF
+          echo "cGx1Z2lucyB7CiAgICBpZCAnY29tLmFuZHJvaWQuYXBwbGljYXRpb24nCiAgICBpZCAnb3JnLmpldGJyYWlucy5rb3RsaW4uYW5kcm9pZCcKfQphbmRyb2lkIHsKICAgIG5hbWVzcGFjZSAnY29tLmV4YW1wbGUub25ib2FyZGluZycKICAgIGNvbXBpbGVTZGsgMzQKICAgIGRlZmF1bHRDb25maWcgewogICAgICAgIGFwcGxpY2F0aW9uSWQgImNvbS5leGFtcGxlLm9uYm9hcmRpbmciCiAgICAgICAgbWluU2RrIDI0CiAgICAgICAgdGFyZ2V0U2RrIDM0CiAgICAgICAgdmVyc2lvbkNvZGUgMQogICAgICAgIHZlcnNpb25OYW1lICIxLjAiCiAgICB9CiAgICBidWlsZFR5cGVzIHsKICAgICAgICByZWxlYXNlIHsKICAgICAgICAgICAgbWluaWZ5RW5hYmxlZCBmYWxzZQogICAgICAgICAgICBwcm9ndWFyZEZpbGVzIGdldERlZmF1bHRQcm9ndWFyZEZpbGUoJ3Byb2d1YXJkLWFuZHJvaWQtb3B0aW1pemUudHh0JyksICdwcm9ndWFyZC1ydWxlcy5wcm8nCiAgICAgICAgfQogICAgfQogICAgY29tcGlsZU9wdGlvbnMgewogICAgICAgIHNvdXJjZUNvbXBhdGliaWxpdHkgSmF2YVZlcnNpb24uVkVSU0lPTl8xXzgKICAgICAgICB0YXJnZXRDb21wYXRpYmlsaXR5IEphdmFWZXJzaW9uLlZFUlNJT05fMV84CiAgICB9CiAgICBrb3RsaW5PcHRpb25zIHsKICAgICAgICBqdm1UYXJnZXQgPSAnMS44JwogICAgfQp9CmRlcGVuZGVuY2llcyB7CiAgICBpbXBsZW1lbnRhdGlvbiAnYW5kcm9pZHguY29yZTpjb3JlLWt0eDoxLjEyLjAnCiAgICBpbXBsZW1lbnRhdGlvbiAnYW5kcm9pZHguYXBwY29tcGF0OmFwcGNvbXBhdDoxLjYuMScKICAgIGltcGxlbWVudGF0aW9uICdjb20uZ29vZ2xlLmFuZHJvaWQubWF0ZXJpYWw6bWF0ZXJpYWw6MS4xMS4wJwogICAgaW1wbGVtZW50YXRpb24gJ2FuZHJvaWR4LmZyYWdtZW50OmZyYWdtZW50LWt0eDoxLjYuMicKfQ==" | base64 -d > hw1/app/build.gradle
 
           # ── proguard-rules.pro ───────────────────────────────────────────
           touch hw1/app/proguard-rules.pro
 
           # ── AndroidManifest.xml ──────────────────────────────────────────
-          cat > hw1/app/src/main/AndroidManifest.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <application
-        android:allowBackup="true"
-        android:label="Onboarding App"
-        android:theme="@style/Theme.OnboardingApp"
-        android:supportsRtl="true">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-    </application>
-</manifest>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPG1hbmlmZXN0IHhtbG5zOmFuZHJvaWQ9Imh0dHA6Ly9zY2hlbWFzLmFuZHJvaWQuY29tL2Fway9yZXMvYW5kcm9pZCI+CiAgICA8YXBwbGljYXRpb24KICAgICAgICBhbmRyb2lkOmFsbG93QmFja3VwPSJ0cnVlIgogICAgICAgIGFuZHJvaWQ6bGFiZWw9Ik9uYm9hcmRpbmcgQXBwIgogICAgICAgIGFuZHJvaWQ6dGhlbWU9IkBzdHlsZS9UaGVtZS5PbmJvYXJkaW5nQXBwIgogICAgICAgIGFuZHJvaWQ6c3VwcG9ydHNSdGw9InRydWUiPgogICAgICAgIDxhY3Rpdml0eQogICAgICAgICAgICBhbmRyb2lkOm5hbWU9Ii5NYWluQWN0aXZpdHkiCiAgICAgICAgICAgIGFuZHJvaWQ6ZXhwb3J0ZWQ9InRydWUiPgogICAgICAgICAgICA8aW50ZW50LWZpbHRlcj4KICAgICAgICAgICAgICAgIDxhY3Rpb24gYW5kcm9pZDpuYW1lPSJhbmRyb2lkLmludGVudC5hY3Rpb24uTUFJTiIgLz4KICAgICAgICAgICAgICAgIDxjYXRlZ29yeSBhbmRyb2lkOm5hbWU9ImFuZHJvaWQuaW50ZW50LmNhdGVnb3J5LkxBVU5DSEVSIiAvPgogICAgICAgICAgICA8L2ludGVudC1maWx0ZXI+CiAgICAgICAgPC9hY3Rpdml0eT4KICAgIDwvYXBwbGljYXRpb24+CjwvbWFuaWZlc3Q+" | base64 -d > hw1/app/src/main/AndroidManifest.xml
 
           # ── colors.xml ───────────────────────────────────────────────────
-          cat > hw1/app/src/main/res/values/colors.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="purple_200">#BBBBFF</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="black">#FF000000</color>
-    <color name="hint_color">#FF888888</color>
-    <color name="edit_bg">#FFF5F5F5</color>
-    <color name="edit_border">#FFCCCCCC</color>
-</resources>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHJlc291cmNlcz4KICAgIDxjb2xvciBuYW1lPSJwdXJwbGVfNzAwIj4jRkYzNzAwQjM8L2NvbG9yPgogICAgPGNvbG9yIG5hbWU9InB1cnBsZV8yMDAiPiNCQkJCRkY8L2NvbG9yPgogICAgPGNvbG9yIG5hbWU9IndoaXRlIj4jRkZGRkZGRkY8L2NvbG9yPgogICAgPGNvbG9yIG5hbWU9ImJsYWNrIj4jRkYwMDAwMDA8L2NvbG9yPgogICAgPGNvbG9yIG5hbWU9ImhpbnRfY29sb3IiPiNGRjg4ODg4ODwvY29sb3I+CiAgICA8Y29sb3IgbmFtZT0iZWRpdF9iZyI+I0ZGRjVGNUY1PC9jb2xvcj4KICAgIDxjb2xvciBuYW1lPSJlZGl0X2JvcmRlciI+I0ZGQ0NDQ0NDPC9jb2xvcj4KPC9yZXNvdXJjZXM+" | base64 -d > hw1/app/src/main/res/values/colors.xml
 
           # ── strings.xml ──────────────────────────────────────────────────
-          cat > hw1/app/src/main/res/values/strings.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Onboarding App</string>
-</resources>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHJlc291cmNlcz4KICAgIDxzdHJpbmcgbmFtZT0iYXBwX25hbWUiPk9uYm9hcmRpbmcgQXBwPC9zdHJpbmc+CjwvcmVzb3VyY2VzPg==" | base64 -d > hw1/app/src/main/res/values/strings.xml
 
           # ── themes.xml ───────────────────────────────────────────────────
-          cat > hw1/app/src/main/res/values/themes.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <style name="Theme.OnboardingApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">#FF3700B3</item>
-        <item name="colorPrimaryVariant">#FF3700B3</item>
-        <item name="colorOnPrimary">#FFFFFFFF</item>
-        <item name="android:windowBackground">#FFFFFFFF</item>
-        <item name="editTextStyle">@style/MyEditTextStyle</item>
-    </style>
-    <style name="MyEditTextStyle" parent="Widget.MaterialComponents.TextInputEditText.OutlinedBox">
-        <item name="android:textColor">#FF000000</item>
-        <item name="android:textColorHint">#FF888888</item>
-    </style>
-</resources>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHJlc291cmNlcz4KICAgIDxzdHlsZSBuYW1lPSJUaGVtZS5PbmJvYXJkaW5nQXBwIiBwYXJlbnQ9IlRoZW1lLk1hdGVyaWFsQ29tcG9uZW50cy5EYXlOaWdodC5Ob0FjdGlvbkJhciI+CiAgICAgICAgPGl0ZW0gbmFtZT0iY29sb3JQcmltYXJ5Ij4jRkYzNzAwQjM8L2l0ZW0+CiAgICAgICAgPGl0ZW0gbmFtZT0iY29sb3JQcmltYXJ5VmFyaWFudCI+I0ZGMzcwMEIzPC9pdGVtPgogICAgICAgIDxpdGVtIG5hbWU9ImNvbG9yT25QcmltYXJ5Ij4jRkZGRkZGRkY8L2l0ZW0+CiAgICAgICAgPGl0ZW0gbmFtZT0iYW5kcm9pZDp3aW5kb3dCYWNrZ3JvdW5kIj4jRkZGRkZGRkY8L2l0ZW0+CiAgICAgICAgPGl0ZW0gbmFtZT0iZWRpdFRleHRTdHlsZSI+QHN0eWxlL015RWRpdFRleHRTdHlsZTwvaXRlbT4KICAgIDwvc3R5bGU+CiAgICA8c3R5bGUgbmFtZT0iTXlFZGl0VGV4dFN0eWxlIiBwYXJlbnQ9IldpZGdldC5NYXRlcmlhbENvbXBvbmVudHMuVGV4dElucHV0RWRpdFRleHQuT3V0bGluZWRCb3giPgogICAgICAgIDxpdGVtIG5hbWU9ImFuZHJvaWQ6dGV4dENvbG9yIj4jRkYwMDAwMDA8L2l0ZW0+CiAgICAgICAgPGl0ZW0gbmFtZT0iYW5kcm9pZDp0ZXh0Q29sb3JIaW50Ij4jRkY4ODg4ODg8L2l0ZW0+CiAgICA8L3N0eWxlPgo8L3Jlc291cmNlcz4=" | base64 -d > hw1/app/src/main/res/values/themes.xml
 
           # ── edit_bg.xml drawable ─────────────────────────────────────────
-          cat > hw1/app/src/main/res/drawable/edit_bg.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle">
-    <solid android:color="#FFF5F5F5"/>
-    <stroke android:width="1dp" android:color="#FFCCCCCC"/>
-    <corners android:radius="8dp"/>
-</shape>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHNoYXBlIHhtbG5zOmFuZHJvaWQ9Imh0dHA6Ly9zY2hlbWFzLmFuZHJvaWQuY29tL2Fway9yZXMvYW5kcm9pZCIKICAgIGFuZHJvaWQ6c2hhcGU9InJlY3RhbmdsZSI+CiAgICA8c29saWQgYW5kcm9pZDpjb2xvcj0iI0ZGRjVGNUY1Ii8+CiAgICA8c3Ryb2tlIGFuZHJvaWQ6d2lkdGg9IjFkcCIgYW5kcm9pZDpjb2xvcj0iI0ZGQ0NDQ0NDIi8+CiAgICA8Y29ybmVycyBhbmRyb2lkOnJhZGl1cz0iOGRwIi8+Cjwvc2hhcGU+" | base64 -d > hw1/app/src/main/res/drawable/edit_bg.xml
 
           # ── activity_main.xml ────────────────────────────────────────────
-          cat > hw1/app/src/main/res/layout/activity_main.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFFFF"/>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPEZyYW1lTGF5b3V0IHhtbG5zOmFuZHJvaWQ9Imh0dHA6Ly9zY2hlbWFzLmFuZHJvaWQuY29tL2Fway9yZXMvYW5kcm9pZCIKICAgIGFuZHJvaWQ6aWQ9IkAraWQvZnJhZ21lbnRfY29udGFpbmVyIgogICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0ibWF0Y2hfcGFyZW50IgogICAgYW5kcm9pZDpiYWNrZ3JvdW5kPSIjRkZGRkZGRkYiLz4=" | base64 -d > hw1/app/src/main/res/layout/activity_main.xml
 
           # ── fragment_1.xml ───────────────────────────────────────────────
-          cat > hw1/app/src/main/res/layout/fragment_1.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="32dp"
-    android:gravity="center"
-    android:background="#FFFFFFFF">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome!"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#FF3700B3"
-        android:layout_marginBottom="8dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Let us get you set up"
-        android:textSize="16sp"
-        android:textColor="#FF666666"
-        android:layout_marginBottom="40dp"/>
-
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your full name"
-        android:textColorHint="#FF888888"
-        android:textColor="#FF000000"
-        android:inputType="textPersonName"
-        android:padding="14dp"
-        android:background="@drawable/edit_bg"
-        android:layout_marginBottom="24dp"/>
-
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Get Started"
-        android:textColor="#FFFFFFFF"
-        android:textSize="16sp"
-        android:backgroundTint="#FF3700B3"/>
-
-</LinearLayout>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPExpbmVhckxheW91dCB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICBhbmRyb2lkOmxheW91dF93aWR0aD0ibWF0Y2hfcGFyZW50IgogICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJtYXRjaF9wYXJlbnQiCiAgICBhbmRyb2lkOm9yaWVudGF0aW9uPSJ2ZXJ0aWNhbCIKICAgIGFuZHJvaWQ6cGFkZGluZz0iMzJkcCIKICAgIGFuZHJvaWQ6Z3Jhdml0eT0iY2VudGVyIgogICAgYW5kcm9pZDpiYWNrZ3JvdW5kPSIjRkZGRkZGRkYiPgoKICAgIDxUZXh0VmlldwogICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgYW5kcm9pZDp0ZXh0PSJXZWxjb21lISIKICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIyOHNwIgogICAgICAgIGFuZHJvaWQ6dGV4dFN0eWxlPSJib2xkIgogICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSIjRkYzNzAwQjMiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSI4ZHAiLz4KCiAgICA8VGV4dFZpZXcKICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6dGV4dD0iTGV0IHVzIGdldCB5b3Ugc2V0IHVwIgogICAgICAgIGFuZHJvaWQ6dGV4dFNpemU9IjE2c3AiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjY2NjY2NiIKICAgICAgICBhbmRyb2lkOmxheW91dF9tYXJnaW5Cb3R0b209IjQwZHAiLz4KCiAgICA8RWRpdFRleHQKICAgICAgICBhbmRyb2lkOmlkPSJAK2lkL2V0TmFtZSIKICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0ibWF0Y2hfcGFyZW50IgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6aGludD0iRW50ZXIgeW91ciBmdWxsIG5hbWUiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3JIaW50PSIjRkY4ODg4ODgiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjAwMDAwMCIKICAgICAgICBhbmRyb2lkOmlucHV0VHlwZT0idGV4dFBlcnNvbk5hbWUiCiAgICAgICAgYW5kcm9pZDpwYWRkaW5nPSIxNGRwIgogICAgICAgIGFuZHJvaWQ6YmFja2dyb3VuZD0iQGRyYXdhYmxlL2VkaXRfYmciCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSIyNGRwIi8+CgogICAgPEJ1dHRvbgogICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvYnRuTmV4dCIKICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0ibWF0Y2hfcGFyZW50IgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0iNTZkcCIKICAgICAgICBhbmRyb2lkOnRleHQ9IkdldCBTdGFydGVkIgogICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSIjRkZGRkZGRkYiCiAgICAgICAgYW5kcm9pZDp0ZXh0U2l6ZT0iMTZzcCIKICAgICAgICBhbmRyb2lkOmJhY2tncm91bmRUaW50PSIjRkYzNzAwQjMiLz4KCjwvTGluZWFyTGF5b3V0Pg==" | base64 -d > hw1/app/src/main/res/layout/fragment_1.xml
 
           # ── fragment_2.xml ───────────────────────────────────────────────
-          cat > hw1/app/src/main/res/layout/fragment_2.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFFFFFF">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="32dp"
-        android:gravity="center_horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Step 2 of 3"
-            android:textSize="13sp"
-            android:textColor="#FF999999"
-            android:layout_marginBottom="4dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tell us about yourself"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#FF3700B3"
-            android:layout_marginBottom="32dp"/>
-
-        <EditText
-            android:id="@+id/etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Full Name"
-            android:textColorHint="#FF888888"
-            android:textColor="#FF000000"
-            android:inputType="textPersonName"
-            android:padding="14dp"
-            android:background="@drawable/edit_bg"
-            android:layout_marginBottom="16dp"/>
-
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email Address"
-            android:textColorHint="#FF888888"
-            android:textColor="#FF000000"
-            android:inputType="textEmailAddress"
-            android:padding="14dp"
-            android:background="@drawable/edit_bg"
-            android:layout_marginBottom="16dp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gender"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#FF333333"
-            android:layout_marginBottom="6dp"/>
-
-        <RadioGroup
-            android:id="@+id/rgGender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="32dp">
-
-            <RadioButton
-                android:id="@+id/rbMale"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Male"
-                android:textColor="#FF000000"/>
-
-            <RadioButton
-                android:id="@+id/rbFemale"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Female"
-                android:textColor="#FF000000"/>
-
-            <RadioButton
-                android:id="@+id/rbOther"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Other"
-                android:textColor="#FF000000"/>
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/btnContinue"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Continue"
-            android:textColor="#FFFFFFFF"
-            android:textSize="16sp"
-            android:backgroundTint="#FF3700B3"/>
-
-    </LinearLayout>
-</ScrollView>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPFNjcm9sbFZpZXcgeG1sbnM6YW5kcm9pZD0iaHR0cDovL3NjaGVtYXMuYW5kcm9pZC5jb20vYXBrL3Jlcy9hbmRyb2lkIgogICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0ibWF0Y2hfcGFyZW50IgogICAgYW5kcm9pZDpiYWNrZ3JvdW5kPSIjRkZGRkZGRkYiPgoKICAgIDxMaW5lYXJMYXlvdXQKICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0ibWF0Y2hfcGFyZW50IgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6b3JpZW50YXRpb249InZlcnRpY2FsIgogICAgICAgIGFuZHJvaWQ6cGFkZGluZz0iMzJkcCIKICAgICAgICBhbmRyb2lkOmdyYXZpdHk9ImNlbnRlcl9ob3Jpem9udGFsIj4KCiAgICAgICAgPFRleHRWaWV3CiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgICAgICBhbmRyb2lkOnRleHQ9IlN0ZXAgMiBvZiAzIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIxM3NwIgogICAgICAgICAgICBhbmRyb2lkOnRleHRDb2xvcj0iI0ZGOTk5OTk5IgogICAgICAgICAgICBhbmRyb2lkOmxheW91dF9tYXJnaW5Cb3R0b209IjRkcCIvPgoKICAgICAgICA8VGV4dFZpZXcKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9IndyYXBfY29udGVudCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dD0iVGVsbCB1cyBhYm91dCB5b3Vyc2VsZiIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0U2l6ZT0iMjRzcCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0U3R5bGU9ImJvbGQiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSIjRkYzNzAwQjMiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpbkJvdHRvbT0iMzJkcCIvPgoKICAgICAgICA8RWRpdFRleHQKICAgICAgICAgICAgYW5kcm9pZDppZD0iQCtpZC9ldE5hbWUiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgICAgICBhbmRyb2lkOmhpbnQ9IkZ1bGwgTmFtZSIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3JIaW50PSIjRkY4ODg4ODgiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSIjRkYwMDAwMDAiCiAgICAgICAgICAgIGFuZHJvaWQ6aW5wdXRUeXBlPSJ0ZXh0UGVyc29uTmFtZSIKICAgICAgICAgICAgYW5kcm9pZDpwYWRkaW5nPSIxNGRwIgogICAgICAgICAgICBhbmRyb2lkOmJhY2tncm91bmQ9IkBkcmF3YWJsZS9lZGl0X2JnIgogICAgICAgICAgICBhbmRyb2lkOmxheW91dF9tYXJnaW5Cb3R0b209IjE2ZHAiLz4KCiAgICAgICAgPEVkaXRUZXh0CiAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvZXRFbWFpbCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6aGludD0iRW1haWwgQWRkcmVzcyIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3JIaW50PSIjRkY4ODg4ODgiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSIjRkYwMDAwMDAiCiAgICAgICAgICAgIGFuZHJvaWQ6aW5wdXRUeXBlPSJ0ZXh0RW1haWxBZGRyZXNzIgogICAgICAgICAgICBhbmRyb2lkOnBhZGRpbmc9IjE0ZHAiCiAgICAgICAgICAgIGFuZHJvaWQ6YmFja2dyb3VuZD0iQGRyYXdhYmxlL2VkaXRfYmciCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpbkJvdHRvbT0iMTZkcCIvPgoKICAgICAgICA8VGV4dFZpZXcKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6dGV4dD0iR2VuZGVyIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIxNHNwIgogICAgICAgICAgICBhbmRyb2lkOnRleHRTdHlsZT0iYm9sZCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjMzMzMzMyIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSI2ZHAiLz4KCiAgICAgICAgPFJhZGlvR3JvdXAKICAgICAgICAgICAgYW5kcm9pZDppZD0iQCtpZC9yZ0dlbmRlciIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9Im1hdGNoX3BhcmVudCIKICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6b3JpZW50YXRpb249Imhvcml6b250YWwiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X21hcmdpbkJvdHRvbT0iMzJkcCI+CgogICAgICAgICAgICA8UmFkaW9CdXR0b24KICAgICAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvcmJNYWxlIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9IjBkcCIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2VpZ2h0PSIxIgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSJNYWxlIgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjAwMDAwMCIvPgoKICAgICAgICAgICAgPFJhZGlvQnV0dG9uCiAgICAgICAgICAgICAgICBhbmRyb2lkOmlkPSJAK2lkL3JiRmVtYWxlIgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9IjBkcCIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgICAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2VpZ2h0PSIxIgogICAgICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSJGZW1hbGUiCiAgICAgICAgICAgICAgICBhbmRyb2lkOnRleHRDb2xvcj0iI0ZGMDAwMDAwIi8+CgogICAgICAgICAgICA8UmFkaW9CdXR0b24KICAgICAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvcmJPdGhlciIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSIwZHAiCiAgICAgICAgICAgICAgICBhbmRyb2lkOmxheW91dF9oZWlnaHQ9IndyYXBfY29udGVudCIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dlaWdodD0iMSIKICAgICAgICAgICAgICAgIGFuZHJvaWQ6dGV4dD0iT3RoZXIiCiAgICAgICAgICAgICAgICBhbmRyb2lkOnRleHRDb2xvcj0iI0ZGMDAwMDAwIi8+CiAgICAgICAgPC9SYWRpb0dyb3VwPgoKICAgICAgICA8QnV0dG9uCiAgICAgICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvYnRuQ29udGludWUiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0iNTZkcCIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0PSJDb250aW51ZSIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRkZGRkZGRiIKICAgICAgICAgICAgYW5kcm9pZDp0ZXh0U2l6ZT0iMTZzcCIKICAgICAgICAgICAgYW5kcm9pZDpiYWNrZ3JvdW5kVGludD0iI0ZGMzcwMEIzIi8+CgogICAgPC9MaW5lYXJMYXlvdXQ+CjwvU2Nyb2xsVmlldz4=" | base64 -d > hw1/app/src/main/res/layout/fragment_2.xml
 
           # ── fragment_3.xml ───────────────────────────────────────────────
-          cat > hw1/app/src/main/res/layout/fragment_3.xml << 'EOF'
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="32dp"
-    android:gravity="center_horizontal"
-    android:background="#FFFFFFFF">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Step 3 of 3"
-        android:textSize="13sp"
-        android:textColor="#FF999999"
-        android:layout_marginBottom="4dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Almost there!"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#FF3700B3"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello,"
-        android:textSize="18sp"
-        android:textColor="#FF555555"
-        android:layout_marginBottom="4dp"/>
-
-    <TextView
-        android:id="@+id/tvUserName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="User"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="#FF3700B3"
-        android:layout_marginBottom="40dp"/>
-
-    <CheckBox
-        android:id="@+id/cbAgree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="I confirm I have read and agree to use the app."
-        android:textColor="#FF000000"
-        android:textSize="15sp"
-        android:layout_marginBottom="32dp"/>
-
-    <Button
-        android:id="@+id/btnFinish"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="Continue"
-        android:textColor="#FFFFFFFF"
-        android:textSize="16sp"
-        android:enabled="false"
-        android:alpha="0.5"
-        android:backgroundTint="#FF3700B3"/>
-
-</LinearLayout>
-EOF
+          echo "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPExpbmVhckxheW91dCB4bWxuczphbmRyb2lkPSJodHRwOi8vc2NoZW1hcy5hbmRyb2lkLmNvbS9hcGsvcmVzL2FuZHJvaWQiCiAgICBhbmRyb2lkOmxheW91dF93aWR0aD0ibWF0Y2hfcGFyZW50IgogICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJtYXRjaF9wYXJlbnQiCiAgICBhbmRyb2lkOm9yaWVudGF0aW9uPSJ2ZXJ0aWNhbCIKICAgIGFuZHJvaWQ6cGFkZGluZz0iMzJkcCIKICAgIGFuZHJvaWQ6Z3Jhdml0eT0iY2VudGVyX2hvcml6b250YWwiCiAgICBhbmRyb2lkOmJhY2tncm91bmQ9IiNGRkZGRkZGRiI+CgogICAgPFRleHRWaWV3CiAgICAgICAgYW5kcm9pZDpsYXlvdXRfd2lkdGg9IndyYXBfY29udGVudCIKICAgICAgICBhbmRyb2lkOmxheW91dF9oZWlnaHQ9IndyYXBfY29udGVudCIKICAgICAgICBhbmRyb2lkOnRleHQ9IlN0ZXAgMyBvZiAzIgogICAgICAgIGFuZHJvaWQ6dGV4dFNpemU9IjEzc3AiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjk5OTk5OSIKICAgICAgICBhbmRyb2lkOmxheW91dF9tYXJnaW5Cb3R0b209IjRkcCIvPgoKICAgIDxUZXh0VmlldwogICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgYW5kcm9pZDp0ZXh0PSJBbG1vc3QgdGhlcmUhIgogICAgICAgIGFuZHJvaWQ6dGV4dFNpemU9IjI0c3AiCiAgICAgICAgYW5kcm9pZDp0ZXh0U3R5bGU9ImJvbGQiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjM3MDBCMyIKICAgICAgICBhbmRyb2lkOmxheW91dF9tYXJnaW5Cb3R0b209IjI0ZHAiLz4KCiAgICA8VGV4dFZpZXcKICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6dGV4dD0iSGVsbG8sIgogICAgICAgIGFuZHJvaWQ6dGV4dFNpemU9IjE4c3AiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRjU1NTU1NSIKICAgICAgICBhbmRyb2lkOmxheW91dF9tYXJnaW5Cb3R0b209IjRkcCIvPgoKICAgIDxUZXh0VmlldwogICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvdHZVc2VyTmFtZSIKICAgICAgICBhbmRyb2lkOmxheW91dF93aWR0aD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X2hlaWdodD0id3JhcF9jb250ZW50IgogICAgICAgIGFuZHJvaWQ6dGV4dD0iVXNlciIKICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIyOHNwIgogICAgICAgIGFuZHJvaWQ6dGV4dFN0eWxlPSJib2xkIgogICAgICAgIGFuZHJvaWQ6dGV4dENvbG9yPSIjRkYzNzAwQjMiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSI0MGRwIi8+CgogICAgPENoZWNrQm94CiAgICAgICAgYW5kcm9pZDppZD0iQCtpZC9jYkFncmVlIgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSJ3cmFwX2NvbnRlbnQiCiAgICAgICAgYW5kcm9pZDp0ZXh0PSJJIGNvbmZpcm0gSSBoYXZlIHJlYWQgYW5kIGFncmVlIHRvIHVzZSB0aGUgYXBwLiIKICAgICAgICBhbmRyb2lkOnRleHRDb2xvcj0iI0ZGMDAwMDAwIgogICAgICAgIGFuZHJvaWQ6dGV4dFNpemU9IjE1c3AiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfbWFyZ2luQm90dG9tPSIzMmRwIi8+CgogICAgPEJ1dHRvbgogICAgICAgIGFuZHJvaWQ6aWQ9IkAraWQvYnRuRmluaXNoIgogICAgICAgIGFuZHJvaWQ6bGF5b3V0X3dpZHRoPSJtYXRjaF9wYXJlbnQiCiAgICAgICAgYW5kcm9pZDpsYXlvdXRfaGVpZ2h0PSI1NmRwIgogICAgICAgIGFuZHJvaWQ6dGV4dD0iQ29udGludWUiCiAgICAgICAgYW5kcm9pZDp0ZXh0Q29sb3I9IiNGRkZGRkZGRiIKICAgICAgICBhbmRyb2lkOnRleHRTaXplPSIxNnNwIgogICAgICAgIGFuZHJvaWQ6ZW5hYmxlZD0iZmFsc2UiCiAgICAgICAgYW5kcm9pZDphbHBoYT0iMC41IgogICAgICAgIGFuZHJvaWQ6YmFja2dyb3VuZFRpbnQ9IiNGRjM3MDBCMyIvPgoKPC9MaW5lYXJMYXlvdXQ+" | base64 -d > hw1/app/src/main/res/layout/fragment_3.xml
 
           # ── MainActivity.kt ──────────────────────────────────────────────
-          cat > hw1/app/src/main/java/com/example/onboarding/MainActivity.kt << 'EOF'
-package com.example.onboarding
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-class MainActivity : AppCompatActivity(),
-    Fragment1.Fragment1Listener,
-    Fragment2.Fragment2Listener,
-    Fragment3.Fragment3Listener {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, Fragment1())
-                .commit()
-        }
-    }
-    override fun onFragment1Continue(name: String) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, Fragment2.newInstance(name))
-            .addToBackStack(null).commit()
-    }
-    override fun onFragment2Continue(name: String) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, Fragment3.newInstance(name))
-            .addToBackStack(null).commit()
-    }
-    override fun onCheckboxStateChanged(isChecked: Boolean) {}
-}
-EOF
+          echo "cGFja2FnZSBjb20uZXhhbXBsZS5vbmJvYXJkaW5nCmltcG9ydCBhbmRyb2lkLm9zLkJ1bmRsZQppbXBvcnQgYW5kcm9pZHguYXBwY29tcGF0LmFwcC5BcHBDb21wYXRBY3Rpdml0eQpjbGFzcyBNYWluQWN0aXZpdHkgOiBBcHBDb21wYXRBY3Rpdml0eSgpLAogICAgRnJhZ21lbnQxLkZyYWdtZW50MUxpc3RlbmVyLAogICAgRnJhZ21lbnQyLkZyYWdtZW50Mkxpc3RlbmVyLAogICAgRnJhZ21lbnQzLkZyYWdtZW50M0xpc3RlbmVyIHsKICAgIG92ZXJyaWRlIGZ1biBvbkNyZWF0ZShzYXZlZEluc3RhbmNlU3RhdGU6IEJ1bmRsZT8pIHsKICAgICAgICBzdXBlci5vbkNyZWF0ZShzYXZlZEluc3RhbmNlU3RhdGUpCiAgICAgICAgc2V0Q29udGVudFZpZXcoUi5sYXlvdXQuYWN0aXZpdHlfbWFpbikKICAgICAgICBpZiAoc2F2ZWRJbnN0YW5jZVN0YXRlID09IG51bGwpIHsKICAgICAgICAgICAgc3VwcG9ydEZyYWdtZW50TWFuYWdlci5iZWdpblRyYW5zYWN0aW9uKCkKICAgICAgICAgICAgICAgIC5yZXBsYWNlKFIuaWQuZnJhZ21lbnRfY29udGFpbmVyLCBGcmFnbWVudDEoKSkKICAgICAgICAgICAgICAgIC5jb21taXQoKQogICAgICAgIH0KICAgIH0KICAgIG92ZXJyaWRlIGZ1biBvbkZyYWdtZW50MUNvbnRpbnVlKG5hbWU6IFN0cmluZykgewogICAgICAgIHN1cHBvcnRGcmFnbWVudE1hbmFnZXIuYmVnaW5UcmFuc2FjdGlvbigpCiAgICAgICAgICAgIC5yZXBsYWNlKFIuaWQuZnJhZ21lbnRfY29udGFpbmVyLCBGcmFnbWVudDIubmV3SW5zdGFuY2UobmFtZSkpCiAgICAgICAgICAgIC5hZGRUb0JhY2tTdGFjayhudWxsKS5jb21taXQoKQogICAgfQogICAgb3ZlcnJpZGUgZnVuIG9uRnJhZ21lbnQyQ29udGludWUobmFtZTogU3RyaW5nKSB7CiAgICAgICAgc3VwcG9ydEZyYWdtZW50TWFuYWdlci5iZWdpblRyYW5zYWN0aW9uKCkKICAgICAgICAgICAgLnJlcGxhY2UoUi5pZC5mcmFnbWVudF9jb250YWluZXIsIEZyYWdtZW50My5uZXdJbnN0YW5jZShuYW1lKSkKICAgICAgICAgICAgLmFkZFRvQmFja1N0YWNrKG51bGwpLmNvbW1pdCgpCiAgICB9CiAgICBvdmVycmlkZSBmdW4gb25DaGVja2JveFN0YXRlQ2hhbmdlZChpc0NoZWNrZWQ6IEJvb2xlYW4pIHt9Cn0=" | base64 -d > hw1/app/src/main/java/com/example/onboarding/MainActivity.kt
 
           # ── Fragment1.kt ─────────────────────────────────────────────────
-          cat > hw1/app/src/main/java/com/example/onboarding/Fragment1.kt << 'EOF'
-package com.example.onboarding
-import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import androidx.fragment.app.Fragment
-class Fragment1 : Fragment() {
-    interface Fragment1Listener { fun onFragment1Continue(name: String) }
-    private var listener: Fragment1Listener? = null
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as? Fragment1Listener
-            ?: throw ClassCastException("$context must implement Fragment1Listener")
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_1, container, false)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val etName = view.findViewById<EditText>(R.id.etName)
-        val btnNext = view.findViewById<Button>(R.id.btnNext)
-        btnNext.setOnClickListener {
-            val name = etName.text.toString().trim()
-            if (name.isEmpty()) { etName.error = "Please enter your name"; return@setOnClickListener }
-            listener?.onFragment1Continue(name)
-        }
-    }
-    override fun onDetach() { super.onDetach(); listener = null }
-}
-EOF
+          echo "cGFja2FnZSBjb20uZXhhbXBsZS5vbmJvYXJkaW5nCmltcG9ydCBhbmRyb2lkLmNvbnRlbnQuQ29udGV4dAppbXBvcnQgYW5kcm9pZC5vcy5CdW5kbGUKaW1wb3J0IGFuZHJvaWQudmlldy5MYXlvdXRJbmZsYXRlcgppbXBvcnQgYW5kcm9pZC52aWV3LlZpZXcKaW1wb3J0IGFuZHJvaWQudmlldy5WaWV3R3JvdXAKaW1wb3J0IGFuZHJvaWQud2lkZ2V0LkJ1dHRvbgppbXBvcnQgYW5kcm9pZC53aWRnZXQuRWRpdFRleHQKaW1wb3J0IGFuZHJvaWR4LmZyYWdtZW50LmFwcC5GcmFnbWVudApjbGFzcyBGcmFnbWVudDEgOiBGcmFnbWVudCgpIHsKICAgIGludGVyZmFjZSBGcmFnbWVudDFMaXN0ZW5lciB7IGZ1biBvbkZyYWdtZW50MUNvbnRpbnVlKG5hbWU6IFN0cmluZykgfQogICAgcHJpdmF0ZSB2YXIgbGlzdGVuZXI6IEZyYWdtZW50MUxpc3RlbmVyPyA9IG51bGwKICAgIG92ZXJyaWRlIGZ1biBvbkF0dGFjaChjb250ZXh0OiBDb250ZXh0KSB7CiAgICAgICAgc3VwZXIub25BdHRhY2goY29udGV4dCkKICAgICAgICBsaXN0ZW5lciA9IGNvbnRleHQgYXM/IEZyYWdtZW50MUxpc3RlbmVyCiAgICAgICAgICAgID86IHRocm93IENsYXNzQ2FzdEV4Y2VwdGlvbigiJGNvbnRleHQgbXVzdCBpbXBsZW1lbnQgRnJhZ21lbnQxTGlzdGVuZXIiKQogICAgfQogICAgb3ZlcnJpZGUgZnVuIG9uQ3JlYXRlVmlldyhpbmZsYXRlcjogTGF5b3V0SW5mbGF0ZXIsIGNvbnRhaW5lcjogVmlld0dyb3VwPywgc2F2ZWRJbnN0YW5jZVN0YXRlOiBCdW5kbGU/KTogVmlldz8gPQogICAgICAgIGluZmxhdGVyLmluZmxhdGUoUi5sYXlvdXQuZnJhZ21lbnRfMSwgY29udGFpbmVyLCBmYWxzZSkKICAgIG92ZXJyaWRlIGZ1biBvblZpZXdDcmVhdGVkKHZpZXc6IFZpZXcsIHNhdmVkSW5zdGFuY2VTdGF0ZTogQnVuZGxlPykgewogICAgICAgIHN1cGVyLm9uVmlld0NyZWF0ZWQodmlldywgc2F2ZWRJbnN0YW5jZVN0YXRlKQogICAgICAgIHZhbCBldE5hbWUgPSB2aWV3LmZpbmRWaWV3QnlJZDxFZGl0VGV4dD4oUi5pZC5ldE5hbWUpCiAgICAgICAgdmFsIGJ0bk5leHQgPSB2aWV3LmZpbmRWaWV3QnlJZDxCdXR0b24+KFIuaWQuYnRuTmV4dCkKICAgICAgICBidG5OZXh0LnNldE9uQ2xpY2tMaXN0ZW5lciB7CiAgICAgICAgICAgIHZhbCBuYW1lID0gZXROYW1lLnRleHQudG9TdHJpbmcoKS50cmltKCkKICAgICAgICAgICAgaWYgKG5hbWUuaXNFbXB0eSgpKSB7IGV0TmFtZS5lcnJvciA9ICJQbGVhc2UgZW50ZXIgeW91ciBuYW1lIjsgcmV0dXJuQHNldE9uQ2xpY2tMaXN0ZW5lciB9CiAgICAgICAgICAgIGxpc3RlbmVyPy5vbkZyYWdtZW50MUNvbnRpbnVlKG5hbWUpCiAgICAgICAgfQogICAgfQogICAgb3ZlcnJpZGUgZnVuIG9uRGV0YWNoKCkgeyBzdXBlci5vbkRldGFjaCgpOyBsaXN0ZW5lciA9IG51bGwgfQp9" | base64 -d > hw1/app/src/main/java/com/example/onboarding/Fragment1.kt
 
           # ── Fragment2.kt ─────────────────────────────────────────────────
-          cat > hw1/app/src/main/java/com/example/onboarding/Fragment2.kt << 'EOF'
-package com.example.onboarding
-import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import androidx.fragment.app.Fragment
-class Fragment2 : Fragment() {
-    interface Fragment2Listener { fun onFragment2Continue(name: String) }
-    private var listener: Fragment2Listener? = null
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as? Fragment2Listener
-            ?: throw ClassCastException("$context must implement Fragment2Listener")
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_2, container, false)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val etName = view.findViewById<EditText>(R.id.etName)
-        val etEmail = view.findViewById<EditText>(R.id.etEmail)
-        val btnContinue = view.findViewById<Button>(R.id.btnContinue)
-        arguments?.getString("USER_NAME")?.let { etName.setText(it) }
-        btnContinue.setOnClickListener {
-            val name = etName.text.toString().trim()
-            val email = etEmail.text.toString().trim()
-            if (name.isEmpty()) { etName.error = "Name is required"; return@setOnClickListener }
-            if (email.isEmpty()) { etEmail.error = "Email is required"; return@setOnClickListener }
-            listener?.onFragment2Continue(name)
-        }
-    }
-    override fun onDetach() { super.onDetach(); listener = null }
-    companion object {
-        fun newInstance(userName: String): Fragment2 {
-            val f = Fragment2()
-            val args = Bundle()
-            args.putString("USER_NAME", userName)
-            f.arguments = args
-            return f
-        }
-    }
-}
-EOF
+          echo "cGFja2FnZSBjb20uZXhhbXBsZS5vbmJvYXJkaW5nCmltcG9ydCBhbmRyb2lkLmNvbnRlbnQuQ29udGV4dAppbXBvcnQgYW5kcm9pZC5vcy5CdW5kbGUKaW1wb3J0IGFuZHJvaWQudmlldy5MYXlvdXRJbmZsYXRlcgppbXBvcnQgYW5kcm9pZC52aWV3LlZpZXcKaW1wb3J0IGFuZHJvaWQudmlldy5WaWV3R3JvdXAKaW1wb3J0IGFuZHJvaWQud2lkZ2V0LkJ1dHRvbgppbXBvcnQgYW5kcm9pZC53aWRnZXQuRWRpdFRleHQKaW1wb3J0IGFuZHJvaWR4LmZyYWdtZW50LmFwcC5GcmFnbWVudApjbGFzcyBGcmFnbWVudDIgOiBGcmFnbWVudCgpIHsKICAgIGludGVyZmFjZSBGcmFnbWVudDJMaXN0ZW5lciB7IGZ1biBvbkZyYWdtZW50MkNvbnRpbnVlKG5hbWU6IFN0cmluZykgfQogICAgcHJpdmF0ZSB2YXIgbGlzdGVuZXI6IEZyYWdtZW50Mkxpc3RlbmVyPyA9IG51bGwKICAgIG92ZXJyaWRlIGZ1biBvbkF0dGFjaChjb250ZXh0OiBDb250ZXh0KSB7CiAgICAgICAgc3VwZXIub25BdHRhY2goY29udGV4dCkKICAgICAgICBsaXN0ZW5lciA9IGNvbnRleHQgYXM/IEZyYWdtZW50Mkxpc3RlbmVyCiAgICAgICAgICAgID86IHRocm93IENsYXNzQ2FzdEV4Y2VwdGlvbigiJGNvbnRleHQgbXVzdCBpbXBsZW1lbnQgRnJhZ21lbnQyTGlzdGVuZXIiKQogICAgfQogICAgb3ZlcnJpZGUgZnVuIG9uQ3JlYXRlVmlldyhpbmZsYXRlcjogTGF5b3V0SW5mbGF0ZXIsIGNvbnRhaW5lcjogVmlld0dyb3VwPywgc2F2ZWRJbnN0YW5jZVN0YXRlOiBCdW5kbGU/KTogVmlldz8gPQogICAgICAgIGluZmxhdGVyLmluZmxhdGUoUi5sYXlvdXQuZnJhZ21lbnRfMiwgY29udGFpbmVyLCBmYWxzZSkKICAgIG92ZXJyaWRlIGZ1biBvblZpZXdDcmVhdGVkKHZpZXc6IFZpZXcsIHNhdmVkSW5zdGFuY2VTdGF0ZTogQnVuZGxlPykgewogICAgICAgIHN1cGVyLm9uVmlld0NyZWF0ZWQodmlldywgc2F2ZWRJbnN0YW5jZVN0YXRlKQogICAgICAgIHZhbCBldE5hbWUgPSB2aWV3LmZpbmRWaWV3QnlJZDxFZGl0VGV4dD4oUi5pZC5ldE5hbWUpCiAgICAgICAgdmFsIGV0RW1haWwgPSB2aWV3LmZpbmRWaWV3QnlJZDxFZGl0VGV4dD4oUi5pZC5ldEVtYWlsKQogICAgICAgIHZhbCBidG5Db250aW51ZSA9IHZpZXcuZmluZFZpZXdCeUlkPEJ1dHRvbj4oUi5pZC5idG5Db250aW51ZSkKICAgICAgICBhcmd1bWVudHM/LmdldFN0cmluZygiVVNFUl9OQU1FIik/LmxldCB7IGV0TmFtZS5zZXRUZXh0KGl0KSB9CiAgICAgICAgYnRuQ29udGludWUuc2V0T25DbGlja0xpc3RlbmVyIHsKICAgICAgICAgICAgdmFsIG5hbWUgPSBldE5hbWUudGV4dC50b1N0cmluZygpLnRyaW0oKQogICAgICAgICAgICB2YWwgZW1haWwgPSBldEVtYWlsLnRleHQudG9TdHJpbmcoKS50cmltKCkKICAgICAgICAgICAgaWYgKG5hbWUuaXNFbXB0eSgpKSB7IGV0TmFtZS5lcnJvciA9ICJOYW1lIGlzIHJlcXVpcmVkIjsgcmV0dXJuQHNldE9uQ2xpY2tMaXN0ZW5lciB9CiAgICAgICAgICAgIGlmIChlbWFpbC5pc0VtcHR5KCkpIHsgZXRFbWFpbC5lcnJvciA9ICJFbWFpbCBpcyByZXF1aXJlZCI7IHJldHVybkBzZXRPbkNsaWNrTGlzdGVuZXIgfQogICAgICAgICAgICBsaXN0ZW5lcj8ub25GcmFnbWVudDJDb250aW51ZShuYW1lKQogICAgICAgIH0KICAgIH0KICAgIG92ZXJyaWRlIGZ1biBvbkRldGFjaCgpIHsgc3VwZXIub25EZXRhY2goKTsgbGlzdGVuZXIgPSBudWxsIH0KICAgIGNvbXBhbmlvbiBvYmplY3QgewogICAgICAgIGZ1biBuZXdJbnN0YW5jZSh1c2VyTmFtZTogU3RyaW5nKTogRnJhZ21lbnQyIHsKICAgICAgICAgICAgdmFsIGYgPSBGcmFnbWVudDIoKQogICAgICAgICAgICB2YWwgYXJncyA9IEJ1bmRsZSgpCiAgICAgICAgICAgIGFyZ3MucHV0U3RyaW5nKCJVU0VSX05BTUUiLCB1c2VyTmFtZSkKICAgICAgICAgICAgZi5hcmd1bWVudHMgPSBhcmdzCiAgICAgICAgICAgIHJldHVybiBmCiAgICAgICAgfQogICAgfQp9" | base64 -d > hw1/app/src/main/java/com/example/onboarding/Fragment2.kt
 
           # ── Fragment3.kt ─────────────────────────────────────────────────
-          cat > hw1/app/src/main/java/com/example/onboarding/Fragment3.kt << 'EOF'
-package com.example.onboarding
-import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
-import android.widget.TextView
-import android.widget.Toast
-import androidx.fragment.app.Fragment
-class Fragment3 : Fragment() {
-    interface Fragment3Listener { fun onCheckboxStateChanged(isChecked: Boolean) }
-    private var listener: Fragment3Listener? = null
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as? Fragment3Listener
-    }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(R.layout.fragment_3, container, false)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val tvUserName = view.findViewById<TextView>(R.id.tvUserName)
-        val cbAgree = view.findViewById<CheckBox>(R.id.cbAgree)
-        val btnFinish = view.findViewById<Button>(R.id.btnFinish)
-        val userName = arguments?.getString("USER_NAME") ?: "User"
-        tvUserName.text = userName
-        btnFinish.isEnabled = false
-        cbAgree.setOnCheckedChangeListener { _, isChecked ->
-            listener?.onCheckboxStateChanged(isChecked)
-            btnFinish.isEnabled = isChecked
-            btnFinish.alpha = if (isChecked) 1.0f else 0.5f
-            btnFinish.text = if (isChecked) "Finish" else "Continue"
-        }
-        btnFinish.setOnClickListener {
-            Toast.makeText(requireContext(), "Welcome, $userName!", Toast.LENGTH_LONG).show()
-        }
-    }
-    override fun onDetach() { super.onDetach(); listener = null }
-    companion object {
-        fun newInstance(userName: String): Fragment3 {
-            val f = Fragment3()
-            val args = Bundle()
-            args.putString("USER_NAME", userName)
-            f.arguments = args
-            return f
-        }
-    }
-}
-EOF
+          echo "cGFja2FnZSBjb20uZXhhbXBsZS5vbmJvYXJkaW5nCmltcG9ydCBhbmRyb2lkLmNvbnRlbnQuQ29udGV4dAppbXBvcnQgYW5kcm9pZC5vcy5CdW5kbGUKaW1wb3J0IGFuZHJvaWQudmlldy5MYXlvdXRJbmZsYXRlcgppbXBvcnQgYW5kcm9pZC52aWV3LlZpZXcKaW1wb3J0IGFuZHJvaWQudmlldy5WaWV3R3JvdXAKaW1wb3J0IGFuZHJvaWQud2lkZ2V0LkJ1dHRvbgppbXBvcnQgYW5kcm9pZC53aWRnZXQuQ2hlY2tCb3gKaW1wb3J0IGFuZHJvaWQud2lkZ2V0LlRleHRWaWV3CmltcG9ydCBhbmRyb2lkLndpZGdldC5Ub2FzdAppbXBvcnQgYW5kcm9pZHguZnJhZ21lbnQuYXBwLkZyYWdtZW50CmNsYXNzIEZyYWdtZW50MyA6IEZyYWdtZW50KCkgewogICAgaW50ZXJmYWNlIEZyYWdtZW50M0xpc3RlbmVyIHsgZnVuIG9uQ2hlY2tib3hTdGF0ZUNoYW5nZWQoaXNDaGVja2VkOiBCb29sZWFuKSB9CiAgICBwcml2YXRlIHZhciBsaXN0ZW5lcjogRnJhZ21lbnQzTGlzdGVuZXI/ID0gbnVsbAogICAgb3ZlcnJpZGUgZnVuIG9uQXR0YWNoKGNvbnRleHQ6IENvbnRleHQpIHsKICAgICAgICBzdXBlci5vbkF0dGFjaChjb250ZXh0KQogICAgICAgIGxpc3RlbmVyID0gY29udGV4dCBhcz8gRnJhZ21lbnQzTGlzdGVuZXIKICAgIH0KICAgIG92ZXJyaWRlIGZ1biBvbkNyZWF0ZVZpZXcoaW5mbGF0ZXI6IExheW91dEluZmxhdGVyLCBjb250YWluZXI6IFZpZXdHcm91cD8sIHNhdmVkSW5zdGFuY2VTdGF0ZTogQnVuZGxlPyk6IFZpZXc/ID0KICAgICAgICBpbmZsYXRlci5pbmZsYXRlKFIubGF5b3V0LmZyYWdtZW50XzMsIGNvbnRhaW5lciwgZmFsc2UpCiAgICBvdmVycmlkZSBmdW4gb25WaWV3Q3JlYXRlZCh2aWV3OiBWaWV3LCBzYXZlZEluc3RhbmNlU3RhdGU6IEJ1bmRsZT8pIHsKICAgICAgICBzdXBlci5vblZpZXdDcmVhdGVkKHZpZXcsIHNhdmVkSW5zdGFuY2VTdGF0ZSkKICAgICAgICB2YWwgdHZVc2VyTmFtZSA9IHZpZXcuZmluZFZpZXdCeUlkPFRleHRWaWV3PihSLmlkLnR2VXNlck5hbWUpCiAgICAgICAgdmFsIGNiQWdyZWUgPSB2aWV3LmZpbmRWaWV3QnlJZDxDaGVja0JveD4oUi5pZC5jYkFncmVlKQogICAgICAgIHZhbCBidG5GaW5pc2ggPSB2aWV3LmZpbmRWaWV3QnlJZDxCdXR0b24+KFIuaWQuYnRuRmluaXNoKQogICAgICAgIHZhbCB1c2VyTmFtZSA9IGFyZ3VtZW50cz8uZ2V0U3RyaW5nKCJVU0VSX05BTUUiKSA/OiAiVXNlciIKICAgICAgICB0dlVzZXJOYW1lLnRleHQgPSB1c2VyTmFtZQogICAgICAgIGJ0bkZpbmlzaC5pc0VuYWJsZWQgPSBmYWxzZQogICAgICAgIGNiQWdyZWUuc2V0T25DaGVja2VkQ2hhbmdlTGlzdGVuZXIgeyBfLCBpc0NoZWNrZWQgLT4KICAgICAgICAgICAgbGlzdGVuZXI/Lm9uQ2hlY2tib3hTdGF0ZUNoYW5nZWQoaXNDaGVja2VkKQogICAgICAgICAgICBidG5GaW5pc2guaXNFbmFibGVkID0gaXNDaGVja2VkCiAgICAgICAgICAgIGJ0bkZpbmlzaC5hbHBoYSA9IGlmIChpc0NoZWNrZWQpIDEuMGYgZWxzZSAwLjVmCiAgICAgICAgICAgIGJ0bkZpbmlzaC50ZXh0ID0gaWYgKGlzQ2hlY2tlZCkgIkZpbmlzaCIgZWxzZSAiQ29udGludWUiCiAgICAgICAgfQogICAgICAgIGJ0bkZpbmlzaC5zZXRPbkNsaWNrTGlzdGVuZXIgewogICAgICAgICAgICBUb2FzdC5tYWtlVGV4dChyZXF1aXJlQ29udGV4dCgpLCAiV2VsY29tZSwgJHVzZXJOYW1lISIsIFRvYXN0LkxFTkdUSF9MT05HKS5zaG93KCkKICAgICAgICB9CiAgICB9CiAgICBvdmVycmlkZSBmdW4gb25EZXRhY2goKSB7IHN1cGVyLm9uRGV0YWNoKCk7IGxpc3RlbmVyID0gbnVsbCB9CiAgICBjb21wYW5pb24gb2JqZWN0IHsKICAgICAgICBmdW4gbmV3SW5zdGFuY2UodXNlck5hbWU6IFN0cmluZyk6IEZyYWdtZW50MyB7CiAgICAgICAgICAgIHZhbCBmID0gRnJhZ21lbnQzKCkKICAgICAgICAgICAgdmFsIGFyZ3MgPSBCdW5kbGUoKQogICAgICAgICAgICBhcmdzLnB1dFN0cmluZygiVVNFUl9OQU1FIiwgdXNlck5hbWUpCiAgICAgICAgICAgIGYuYXJndW1lbnRzID0gYXJncwogICAgICAgICAgICByZXR1cm4gZgogICAgICAgIH0KICAgIH0KfQ==" | base64 -d > hw1/app/src/main/java/com/example/onboarding/Fragment3.kt
 
       - name: Commit and push hw1 folder to GitHub
         run: |
